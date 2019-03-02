@@ -1,0 +1,4 @@
+**/node_modules
+**/package-lock.json
+set_env.sh
+.vscode
