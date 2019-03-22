@@ -12,8 +12,14 @@ const DATABASE_URL: string = process.env.DATABASE_URL || "mongodb://";
 new Database(DATABASE_URL).connect().then((Database: Database) => {
     express().use(json()).use(cors()).use("/", new Router(Database).endpoints()).listen(PORT, () => {
         console.log(`Server startup at ${new Date().toLocaleDateString()} on port ${PORT}`);
-        startAlalyticsInterval(Database);
-        startPingingInterval();
+        /**
+         * Free Heroku dynos can only have a certain amount of up time per month.
+         * The goal was set a ping every 20 minutes to avoid sleeping.
+         * The next solution will be a paid dyno to avoid sleeping.
+         * After the ping interval can be removed and Analytics reports activated.
+         */
+        // startAlalyticsInterval(Database);
+        // startPingingInterval();
     });
 }).catch(() => {
     return process.exit(1);
